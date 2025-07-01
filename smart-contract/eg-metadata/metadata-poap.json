@@ -1,0 +1,17 @@
+{
+  "description": "testing",
+  "external_url": "https://api.poap.tech/metadata/191417/7382443",
+  "home_url": "https://app.poap.xyz/token/7382443",
+  "image_url": "https://assets.poap.xyz/bc7b864b-c54c-420b-a500-35ab88992389.png",
+  "name": "Erigo",
+  "year": 2025,
+  "tags": ["poap", "event"],
+  "attributes": [
+    { "trait_type": "startDate", "value": "30-Jun-2025" },
+    { "trait_type": "endDate", "value": "02-Jul-2025" },
+    { "trait_type": "virtualEvent", "value": "false" },
+    { "trait_type": "city", "value": "" },
+    { "trait_type": "country", "value": "" },
+    { "trait_type": "eventURL", "value": "https://erigo.com" }
+  ]
+}

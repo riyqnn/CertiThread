@@ -1,0 +1,9 @@
+{
+  "nameSeries": "Erigo Garuda",
+  "description": "Jualan baju garuda",
+  "image": "ipfs://bafkreiekvxgvzknm2eidl7tklfvaokagjubxwi2a7h3465znksot77d73q",
+  "attributes": [
+    { "trait_type": "Brand", "value": "Erigo" },
+    { "trait_type": "Verified", "value": "Yes" }
+  ]
+}
