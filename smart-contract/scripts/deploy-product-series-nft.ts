@@ -1,29 +1,35 @@
-// Script to deploy the BrandVerificationNFT contract
+// Script to deploy the ProductSeriesNFT contract
 import { ethers } from "hardhat";
 
 async function main() {
   try {
     // Retrieve the current network information (e.g., hardhat, monadTestnet)
     const network = (await ethers.provider.getNetwork()).name;
-    console.log(`Deploying BrandVerificationNFT to ${network} network...`);
+    console.log(`Deploying ProductSeriesNFT to ${network} network...`);
 
     // Load the ContractFactory compiled from Solidity source code
-    const BrandVerificationNFT = await ethers.getContractFactory(
-      "BrandVerificationNFT"
-    );
+    const ProductSeriesNFT =
+      await ethers.getContractFactory("ProductSeriesNFT");
+
+    // Specify the deployed address of the BrandVerificationNFT contract
+    // This address is passed to the ProductSeriesNFT constructor for verification dependency
+    const verificationContractAddress =
+      "0x8aCF80674385Bc8e7dd91dddA56A8e6464eBe35a";
 
     // Start the deployment transaction (contract creation)
     console.log("Initiating deployment transaction...");
-    const brandVerificationNFT = await BrandVerificationNFT.deploy();
+    const productSeriesNFT = await ProductSeriesNFT.deploy(
+      verificationContractAddress
+    );
 
     // Wait until the deployment transaction is mined and confirmed
     console.log("Waiting for deployment transaction confirmation...");
-    await brandVerificationNFT.waitForDeployment();
+    await productSeriesNFT.waitForDeployment();
 
     // Get the deployed contract address on the network
-    const contractAddress = await brandVerificationNFT.getAddress();
+    const contractAddress = await productSeriesNFT.getAddress();
     console.log(
-      `BrandVerificationNFT deployed successfully to: ${contractAddress}`
+      `ProductSeriesNFT deployed successfully to: ${contractAddress}`
     );
 
     // Print a convenient link to view the contract in the Monad Testnet Explorer (if applicable)

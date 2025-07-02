@@ -8,26 +8,26 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 /**
  * @title BrandVerificationNFT
  * @dev ERC721 contract to mint a single verification NFT per brand
- *      Payment using native RON (msg.value)
+ *      Payment using native MONAD (msg.value)
  */
 contract BrandVerificationNFT is ERC721, Ownable {
     /// Mapping to track if a wallet is already verified
     mapping(address => bool) public isVerified;
 
+    /// Mapping tokenId to metadata URI (IPFS)
+    mapping(uint256 => string) private _customURIs;
+
     /// Global counter for unique token IDs
     uint256 private _tokenIdCounter;
 
-    /// Fee required to register brand (0.0001 RON)
-    uint256 public constant verificationFee = 1e14; // 0.0001 RON
-
-    /// Base URI for metadata
-    string private _baseTokenURI;
+    /// Fee required to register brand (0.0001)
+    uint256 public constant verificationFee = 1e14; // 0.0001
 
     /// Event emitted when a brand is verified
-    event BrandVerified(address indexed brand, uint256 tokenId, uint256 amount);
+    event BrandVerified(address indexed brand, uint256 tokenId, string metadataURI, uint256 amount);
 
     /**
-     * @dev Constructor sets token name, symbol, and initial owner
+     * @dev Constructor sets token name and symbol
      */
     constructor()
         ERC721("CertiThread Brand Verification", "CTV")
@@ -37,23 +37,41 @@ contract BrandVerificationNFT is ERC721, Ownable {
     /**
      * @dev Public function to verify brand
      * Reverts if already verified or fee not met
-     * Mints NFT to sender wallet
+     * Mints NFT to sender wallet and assigns custom metadata URI
+     * @param metadataURI The full IPFS URI (e.g., ipfs://...)
      */
-    function verifyBrand() external payable {
+    function verifyBrand(string calldata metadataURI) external payable {
         require(!isVerified[msg.sender], "Brand already verified.");
-        require(msg.value >= verificationFee, "Verification fee insufficient.");
+        require(msg.value == verificationFee, "Verification fee must be exactly 0.0001 MONAD.");
 
         uint256 tokenId = _tokenIdCounter;
         _tokenIdCounter += 1;
 
         _safeMint(msg.sender, tokenId);
+        _customURIs[tokenId] = metadataURI;
         isVerified[msg.sender] = true;
 
-        emit BrandVerified(msg.sender, tokenId, msg.value);
+        emit BrandVerified(msg.sender, tokenId, metadataURI, msg.value);
     }
 
     /**
-     * @dev Allow owner to withdraw collected RON fees
+     * @dev Return the metadata URI of a token
+     */
+    function tokenURI(uint256 tokenId) public view override returns (string memory) {
+        ownerOf(tokenId); // Reverts if token doesn't exist
+        return _customURIs[tokenId];
+    }
+
+    /**
+     * @dev Owner can update the metadata URI of an existing token
+     */
+    function setTokenURI(uint256 tokenId, string calldata newURI) external onlyOwner {
+        ownerOf(tokenId); // Reverts if token doesn't exist
+        _customURIs[tokenId] = newURI;
+    }
+
+    /**
+     * @dev Allow owner to withdraw collected MONAD fees
      */
     function withdraw() external onlyOwner {
         uint256 balance = address(this).balance;
@@ -62,25 +80,14 @@ contract BrandVerificationNFT is ERC721, Ownable {
     }
 
     /**
-     * @dev Owner can set base URI for metadata
-     * Example: "ipfs://bafybeifc4kbl6dfsvxxtovrdzasyt7cdmzxjto32w3dvfvzi6yr4evhzp4/"
+     * @notice Returns the balance of this contract (in wei)
      */
-    function setBaseURI(string calldata uri) external onlyOwner {
-        _baseTokenURI = uri;
+    function contractBalance() external view returns (uint256) {
+        return address(this).balance;
     }
 
     /**
-     * @dev Return the metadata URI of a token
-     * This does NOT call _exists() to avoid import issues
-     */
-    function tokenURI(uint256 tokenId) public view override returns (string memory) {
-        return string(
-            abi.encodePacked(_baseTokenURI, Strings.toString(tokenId), ".json")
-        );
-    }
-
-    /**
-     * @dev Allow contract to receive RON
+     * @dev Allow contract to receive MONAD
      */
     receive() external payable {}
 

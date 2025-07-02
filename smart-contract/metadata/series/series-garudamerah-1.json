@@ -1,0 +1,9 @@
+{
+  "name": "Garuda Merah",
+  "description": "Ini series garuda merah",
+  "image": "https://brown-holy-fowl-508.mypinata.cloud/ipfs/bafybeihphbl7h6bwvzxvw2oe6uozxthkzjvfuyttoorxmx7pjxtbrivshu",
+  "attributes": [
+    { "trait_type": "brand", "value": "Erigo" },
+    { "trait_type": "serialNumber", "value": "1" }
+  ]
+}
