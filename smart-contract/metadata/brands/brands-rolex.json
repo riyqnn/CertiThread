@@ -1,0 +1,9 @@
+{
+  "name": "Rolex",
+  "description": "Ini adalah brand rolex",
+  "image": "https://brown-holy-fowl-508.mypinata.cloud/ipfs/bafkreiekvxgvzknm2eidl7tklfvaokagjubxwi2a7h3465znksot77d73q",
+  "attributes": [
+    { "trait_type": "verified", "value": "Yes" },
+    { "trait_type": "registrationDate", "value": "2025-06-30" }
+  ]
+}

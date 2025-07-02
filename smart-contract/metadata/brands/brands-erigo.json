@@ -1,0 +1,9 @@
+{
+  "name": "Erigo",
+  "description": "Ini adalah brand Erigo",
+  "image": "https://brown-holy-fowl-508.mypinata.cloud/ipfs/bafkreihxhpmep4rie67upy4llnc6aagptkhpfiwjpyvjcjlfbxi4itrk74",
+  "attributes": [
+    { "trait_type": "verified", "value": "Yes" },
+    { "trait_type": "registrationDate", "value": "2025-06-30" }
+  ]
+}
