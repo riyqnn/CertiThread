@@ -49,7 +49,7 @@ contract ProductSeriesNFT is ERC721, AccessControl {
     event NFTMinted(uint256 indexed tokenId, uint256 indexed seriesId, address indexed to, string metadataURI);
 
     constructor(address verificationAddress)
-        ERC721("CertiThread Product Series", "CTS")
+        ERC721("Snap Product Series", "SPS")
     {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         verificationContract = IBrandVerificationNFT(verificationAddress);

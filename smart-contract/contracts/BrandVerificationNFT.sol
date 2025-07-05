@@ -30,7 +30,7 @@ contract BrandVerificationNFT is ERC721, Ownable {
      * @dev Constructor sets token name and symbol
      */
     constructor()
-        ERC721("CertiThread Brand Verification", "CTV")
+        ERC721("Snap Brand Verification", "SBV")
         Ownable(msg.sender)
     {}
 
